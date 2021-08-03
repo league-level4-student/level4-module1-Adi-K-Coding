@@ -59,7 +59,7 @@ public class Snake {
 
 	public void reset(Location loc) {
 		//1. clear the snake
-		
+		snake.clear();
 		//2. set the location of the head
 		
 		//3. add the head to the snake
