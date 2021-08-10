@@ -21,7 +21,7 @@ import javax.swing.Timer;
 public class _00_SnakeGame implements ActionListener, KeyListener {
 	public static final Color BORDER_COLOR = Color.WHITE;
 	public static final Color BACKGROUND_COLOR = Color.BLACK;
-	public static final Color FOOD_COLOR = Color.RED;
+	public static final Color FOOD_COLOR = Color.WHITE;
 	public static final int WIDTH = 15;
 	public static final int HEIGHT = 12;
 	public static final int WINDOW_SCALE = 50;
@@ -129,9 +129,9 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		case KeyEvent.VK_RIGHT:
 			snake.setDirection(Direction.RIGHT);
 			break;
-		case KeyEvent.VK_SPACE:
-			snake.feed();
-			break;
+		// case KeyEvent.VK_SPACE:
+		// snake.feed();
+		// break;
 		}
 		// if an arrow key is pressed, set the snake's
 		// direction accordingly
@@ -143,13 +143,13 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 	private void setFoodLocation() {
 		// 1. Create a new Location object that is set to a random location
 		Random rand = new Random();
-		int numberX = rand.nextInt(600);
-		int numberY = rand.nextInt(600);
+		int numberX = rand.nextInt(WIDTH);
+		int numberY = rand.nextInt(HEIGHT);
 		Location newLocation = new Location(numberX, numberY);
 		// 2. set the foodLocation variable equal to the Location object you just
 		// created.
 
-		if (snake.isLocationOnSnake(newLocation) == false) {
+		if (!snake.isLocationOnSnake(newLocation)) {
 			foodLocation = newLocation;
 		}
 
@@ -172,6 +172,7 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		if (userChoice == 0) {
 			snake.reset();
 			setFoodLocation();
+			snake.setDirection(Direction.RIGHT);
 			timer.start();
 		} else {
 			System.exit(0);
@@ -194,7 +195,7 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		}
 		// 3. if the location of the head is equal to the location of the food,
 		// feed the snake and set the food location
-		if (snake.getHeadLocation() == foodLocation) {
+		if (snake.getHeadLocation().equals(foodLocation)) {
 			snake.feed();
 			setFoodLocation();
 		}
